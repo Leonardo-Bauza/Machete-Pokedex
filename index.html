@@ -7,6 +7,22 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Leonardo Bauza</h1>
+    <div id="login">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Nombre de usuario">
+        <input type="password" id="password" placeholder="Contraseña">
+        <button onclick="login()">Login</button>
+    </div>
+
+    <div id="pokedex" style="display:none;">
+        <h2>Pokédex de Kanto</h2>
+        <p class="welcome-text">¡Bienvenido a tu Pokédex interactiva! Aquí puedes llevar un registro de los Pokémon que has capturado. Marca las casillas correspondientes para indicar si has capturado un Pokémon macho o hembra. Haz clic en "Mostrar Pokémon faltantes" para ver cuáles te faltan por capturar.</p>
+        <div id="missing-pokemon-container">
+            <p id="missing-pokemon"></p>
+        </div>
+        <div id="pokemon-list"></div>
+        <button onclick="showMissing()">Mostrar Pokémon faltantes</button>
+        <p id="missing-pokemon"></p>
+    </div>
 </body>
 </html>
