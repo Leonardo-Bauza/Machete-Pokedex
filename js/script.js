@@ -1,119 +1,101 @@
-const pokemonList = [
-  { id: 1, name: 'Bulbasaur' },
-  { id: 2, name: 'Ivysaur' },
-  { id: 3, name: 'Venusaur' },
-  { id: 4, name: 'Charmander' },
-  { id: 5, name: 'Charmeleon' },
-  { id: 6, name: 'Charizard' },
-  { id: 7, name: 'Squirtle' },
-  { id: 8, name: 'Wartortle' },
-  { id: 9, name: 'Blastoise' },
-  { id: 10, name: 'Caterpie' },
-  { id: 11, name: 'Metapod' },
-  { id: 12, name: 'Butterfree' },
-  { id: 13, name: 'Weedle' },
-  { id: 14, name: 'Kakuna' },
-  { id: 15, name: 'Beedrill' },
-  { id: 16, name: 'Pidgey' },
-  { id: 17, name: 'Pidgeotto' },
-  { id: 18, name: 'Pidgeot' },
-  { id: 19, name: 'Rattata' },
-  { id: 20, name: 'Raticate' },
-  { id: 21, name: 'Spearow' },
-  { id: 22, name: 'Fearow' },
-  { id: 23, name: 'Ekans' },
-  { id: 24, name: 'Arbok' },
-  { id: 25, name: 'Pikachu' }
-];
+let pokemonList = []; // Inicializar pokemonList como un array vacío
 
-const login = () => {
-  const username = document.getElementById('username').value;
-  const password = document.getElementById('password').value;
+// Cargar los datos de Pokémon
+fetch("./db/data.JSON")
+  .then(response => response.json())
+  .then(data => {
+    pokemonList = data;
+    renderList(pokemonList);
+  })
+  .catch(error => console.error('Error fetching Pokémon data:', error));
 
-  if (username && password) {
-      localStorage.setItem('username', username);
-      document.getElementById('login').style.display = 'none';
-      document.getElementById('pokedex').style.display = 'block';
-      createPokedex();
-  }
-};
-
-const createPokedex = () => {
-  const pokemonListDiv = document.getElementById('pokemon-list');
-  pokemonListDiv.innerHTML = '';
-  const username = localStorage.getItem('username');
-  const userData = JSON.parse(localStorage.getItem(username)) || {};
-
-  pokemonList.forEach(pokemon => {
-      const pokemonCard = document.createElement('div');
-      pokemonCard.className = 'pokemon-card';
-      pokemonCard.innerHTML = `
-          <h3>${pokemon.name}</h3>
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png" alt="${pokemon.name}">
-          <label>
-              <input type="checkbox" id="${pokemon.id}-male" ${userData[`${pokemon.id}-male`] ? 'checked' : ''}>
-              Macho
-          </label>
-          <label>
-              <input type="checkbox" id="${pokemon.id}-female" ${userData[`${pokemon.id}-female`] ? 'checked' : ''}>
-              Hembra
-          </label>
-      `;
-      pokemonListDiv.appendChild(pokemonCard);
-  });
-};
-
+// Función para guardar los datos del usuario en localStorage
 const saveUserData = () => {
-  const username = localStorage.getItem('username');
   const userData = {};
 
   pokemonList.forEach(pokemon => {
-      userData[`${pokemon.id}-male`] = document.getElementById(`${pokemon.id}-male`).checked;
-      userData[`${pokemon.id}-female`] = document.getElementById(`${pokemon.id}-female`).checked;
+    const maleCheckbox = document.getElementById(`${pokemon.id}-male`);
+    const femaleCheckbox = document.getElementById(`${pokemon.id}-female`);
+    
+    if (maleCheckbox) userData[`${pokemon.id}-male`] = maleCheckbox.checked;
+    if (femaleCheckbox) userData[`${pokemon.id}-female`] = femaleCheckbox.checked;
   });
 
-  localStorage.setItem(username, JSON.stringify(userData));
+  localStorage.setItem('userData', JSON.stringify(userData));
 };
 
-const showMissing = () => {
-  saveUserData();
-  const missingPokemon = [];
-  const missingMale = [];
-  const missingFemale = [];
-
+// Inicializar el estado de los checkboxes desde localStorage
+const initializeCheckboxes = () => {
+  const userData = JSON.parse(localStorage.getItem('userData')) || {};
+  
   pokemonList.forEach(pokemon => {
-      const maleChecked = document.getElementById(`${pokemon.id}-male`).checked;
-      const femaleChecked = document.getElementById(`${pokemon.id}-female`).checked;
-
-      if (!maleChecked && !femaleChecked) {
-          missingPokemon.push(pokemon.name);
-      } else if (!maleChecked) {
-          missingMale.push(`${pokemon.name} (macho)`);
-      } else if (!femaleChecked) {
-          missingFemale.push(`${pokemon.name} (hembra)`);
-      }
+    const maleCheckbox = document.getElementById(`${pokemon.id}-male`);
+    const femaleCheckbox = document.getElementById(`${pokemon.id}-female`);
+    
+    if (maleCheckbox) {
+      maleCheckbox.checked = userData[`${pokemon.id}-male`] || false;
+      maleCheckbox.addEventListener('change', saveUserData);
+    }
+    if (femaleCheckbox) {
+      femaleCheckbox.checked = userData[`${pokemon.id}-female`] || false;
+      femaleCheckbox.addEventListener('change', saveUserData);
+    }
   });
-
-  const missingMessageParts = [];
-
-  if (missingPokemon.length > 0) {
-      missingMessageParts.push(`Faltan capturar: ${missingPokemon.join(', ')}`);
-  }
-  if (missingMale.length > 0) {
-      missingMessageParts.push(`Faltan capturar macho: ${missingMale.join(', ')}`);
-  }
-  if (missingFemale.length > 0) {
-      missingMessageParts.push(`Faltan capturar hembra: ${missingFemale.join(', ')}`);
-  }
-  window.scrollTo(0,0);
-  document.getElementById('missing-pokemon').innerText = `Entrenador, ${missingMessageParts.join(' ')}`;
 };
 
-document.addEventListener('DOMContentLoaded', () => {
-  const username = localStorage.getItem('username');
-  if (username) {
-      document.getElementById('login').style.display = 'none';
-      document.getElementById('pokedex').style.display = 'block';
-      createPokedex();
-  }
-});
+// Función para renderizar la lista de Pokémon
+function renderList(pokemonArray) {
+  const pokemonContainer = document.getElementById("pokemon-container");
+  pokemonContainer.innerHTML = ''; // Limpiar el contenedor
+  
+  pokemonArray.forEach(pokemon => {
+    const pokemonCard = document.createElement("div");
+    pokemonCard.className = 'pokemon-card';
+    pokemonCard.innerHTML = `
+      <h3>${pokemon.name}</h3>
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png" alt="${pokemon.name}">
+      <label>  
+      <label>
+            <input type="checkbox" id="${pokemon.id}-male">♂
+        </label>
+        <label>
+            <input type="checkbox" id="${pokemon.id}-female">♀
+        </label>
+        </label>
+      <button class="selectPokemon" id="${pokemon.id}">Agregar</button>`;
+    
+    pokemonContainer.appendChild(pokemonCard);
+  });
+
+  addMissing(); // Llamar a la función addMissing después de renderizar
+  initializeCheckboxes(); // Inicializar los checkboxes después de renderizar
+}
+
+// Función para manejar la adición de Pokémon al carrito
+function addMissing() {
+  let showMissingPokemon = JSON.parse(localStorage.getItem('showMissingPokemon')) || [];
+  
+  const addButton = document.querySelectorAll(".selectPokemon");
+  addButton.forEach(button => {
+    button.onclick = (e) => {
+      const pokemonId = e.currentTarget.id;
+      const selectedPokemon = pokemonList.find(pokemon => pokemon.id == pokemonId);
+      if (selectedPokemon && !showMissingPokemon.some(pokemon => pokemon.id === selectedPokemon.id)) {
+        showMissingPokemon.push(selectedPokemon);
+        showMissingPokemon.sort((a, b) => a.id - b.id);
+        localStorage.setItem("showMissingPokemon", JSON.stringify(showMissingPokemon));
+      }
+    };
+  });
+}
+
+// Función para eliminar todos los datos de localStorage
+const clearLocalStorage = () => {
+    localStorage.clear();
+    // Opcional: Redibujar la lista de Pokémon si es necesario
+    pokemonList = [];
+    renderList(pokemonList);
+  };
+  
+  // Configurar el evento para el botón DeleteAll
+  document.getElementById('deleteAll').addEventListener('click', clearLocalStorage);
