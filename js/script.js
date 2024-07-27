@@ -58,7 +58,7 @@ function renderList(pokemonArray) {;
             <input type="checkbox" id="${pokemon.id}-female">♀
         </label>
         </label>
-      <button class="selectPokemon" id="${pokemon.id}">Agregar</button>`;
+      <a class="selectPokemon" id="${pokemon.id}">Agregar</a>`;
     pokemonContainer.appendChild(pokemonCard);
   });
 
@@ -78,6 +78,7 @@ function addMissing() {;
         showMissingPokemon.push(selectedPokemon);
         showMissingPokemon.sort((a, b) => a.id - b.id);
         localStorage.setItem("showMissingPokemon", JSON.stringify(showMissingPokemon));
+        Toastifier(`${selectedPokemon.name} es faltante`);
       };
     };
   });
@@ -90,3 +91,45 @@ const clearLocalStorage = () => {;
     renderList(pokemonList);
   };
   document.getElementById('deleteAll').addEventListener('click', clearLocalStorage);
+
+
+  /* Librería Toastify */
+  function Toastifier(message) {
+    Toastify({
+    text: message,
+    duration: 4000,
+    destination: "./missingList/missings.html",
+    newWindow: false,
+    close: false,
+    gravity: "top", // `top` or `bottom`
+    position: "right", // `left`, `center` or `right`
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: {
+      background: "linear-gradient(to right, #101010, #6D28D9, #001100)",
+      color: "white",
+    },
+    onClick: function(){
+    } // Callback after click
+    }).showToast();
+  }
+
+
+
+
+
+/*   Toastify({
+    text: `${selectedPokemon.name} atrapado!`,
+    duration: 4000,
+    destination: "./missingList/missings.html",
+    newWindow: false,
+    close: false,
+    gravity: "top", // `top` or `bottom`
+    position: "right", // `left`, `center` or `right`
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: {
+      background: "linear-gradient(to right, #101010, #6D28D9, #001100)",
+      color: "white",
+    },
+    onClick: function(){
+    } // Callback after click
+  }).showToast(); */
