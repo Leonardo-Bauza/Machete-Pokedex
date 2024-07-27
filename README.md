@@ -22,10 +22,10 @@ Visualiza las tarjetas de Pokémon: En la página principal, verás tarjetas par
 * Elimina Pokémon de la lista: En la página de Pokémon faltantes, puedes eliminar Pokémon de la lista de seguimiento.
 ## Archivos y Estructura
 * index.html: La página principal donde se muestran los Pokémon y puedes marcar los géneros.
-* missings.html: Subpágina que muestra la lista de Pokémon que aún te faltan por capturar.
-** css/style.css: Estilos para la aplicación.
-** js/script.js: Lógica principal de la aplicación para manejar el estado de los Pokémon y la interacción del usuario.
-missings.js: Lógica para manejar la visualización y eliminación de Pokémon en la subpágina de faltantes.
-db/data.JSON: Archivo JSON con los datos de los Pokémon de la primera generación.
+* missingList/missings.html: Subpágina que muestra la lista de Pokémon que aún te faltan por capturar.
+* css/style.css: Estilos para la aplicación.
+* js/script.js: Lógica principal de la aplicación para manejar el estado de los Pokémon y la interacción del usuario.
+* missingList/missings.js: Lógica para manejar la visualización y eliminación de Pokémon en la subpágina de faltantes.
+* db/data.JSON: Archivo JSON con los datos de los Pokémon de la primera generación.
 ## Funcionalidades Adicionales
-Eliminar Todos los Datos: En ambas páginas, puedes hacer clic en el botón "Borrar Todo" para limpiar todos los datos guardados en localStorage.
+* Eliminar Todos los Datos: En ambas páginas, puedes hacer clic en el botón "Borrar Todo" para limpiar todos los datos guardados en localStorage.
