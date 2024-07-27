@@ -9,14 +9,16 @@ a:link, a:visited, a:hover, a:active {
     color: #ffffff;
     text-decoration: none;
   }
-input, button {
+input, a {
+    font-style: oblique;
     margin: 10px;
     padding: 10px;
     border: 2px solid #ffffff;
     background-color: #000000;
     color: #ffffff;
     cursor: pointer;
-    
+    display: inline-block;
+    user-select: none;
 }
 
 #pokemon-container {
