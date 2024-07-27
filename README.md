@@ -1,4 +1,4 @@
-Pokémon Family Tracker
+# Pokémon Family Tracker
 Descripción
 Pokémon Family Tracker es una aplicación web diseñada para ayudar a los jugadores de Pokémon a gestionar su colección de Pokémon de la primera generación, diferenciando entre machos y hembras y permitiendo el seguimiento de las "familias" de Pokémon. Ideal para completar tu Pokédex y gestionar Pokémon faltantes según su género.
 
