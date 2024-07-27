@@ -6,15 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
     <script defer src="./js/script.js"></script>
+    <!-- Toastify -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <title>Pokémon Family Tracker</title>
 </head>
 <body>
     <div>
         <h2>Pokédex de Kanto</h2>
-        <p class="welcome-text">¡Bienvenido a tu Pokédex interactiva! Aquí puedes llevar un registro de los Pokémon que has capturado. Marca las casillas correspondientes para indicar si has capturado un Pokémon macho (♂) o hembra (♀). Haz clic en "Mostrar Pokémon faltantes" para ver cuáles te faltan por capturar.</p>
+        <p class="welcome-text">¡Bienvenido a tu Pokédex interactiva! Aquí puedes llevar un registro de los Pokémon que has capturado. Marca las casillas correspondientes para indicar si has capturado un Pokémon macho (♂) o hembra (♀). Independiente de esto, puedes tocar en el boton "Agregar" debajo de las tarjetas para agregarlos a una lista y que te sea aun más fácil verlos!
+            Luego, haz clic en "Mostrar Pokémon faltantes" para ver cuáles te faltan por capturar.</p>
         <div id="pokemon-container"></div>
-        <button><a href="./missingList/missings.html" id="show-missing-button">Mostrar Pokémon faltantes</a></button>
-        <button><a href="./index.html" id="deleteAll">Borrar Todo</a></button>
+        <a href="./missingList/missings.html" id="show-missing-button">Mostrar Pokémon faltantes</a>
+        <a href="./index.html" id="deleteAll">Borrar Todo</a>
     </div>
+    <!-- Toastify -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 </html>
