@@ -5,7 +5,7 @@ let missingContainer = document.getElementById("pokemon-container");
 
 function renderMissingContainer(MissingPokemonArray) {;
     missingContainer.innerHTML = '';
-    MissingPokemonArray.forEach(pokemon => {;
+    MissingPokemonArray.forEach(pokemon => {
         const pokemonCard = document.createElement("div");
         pokemonCard.className = 'pokemon-card'
         pokemonCard.innerHTML = `<h3>${pokemon.name}</h3>
@@ -56,14 +56,14 @@ const clearLocalStorage = () => {;
     destination: "./missings.html",
     newWindow: false,
     close: false,
-    gravity: "top", // `top` or `bottom`
-    position: "right", // `left`, `center` or `right`
-    stopOnFocus: true, // Prevents dismissing of toast on hover
+    gravity: "top",
+    position: "right",
+    stopOnFocus: true,
     style: {
       background: "linear-gradient(to right, #101010, #FE2020, #001100)",
       color: "white",
     },
     onClick: function(){
-    } // Callback after click
+    }
     }).showToast();
   }
