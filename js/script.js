@@ -43,7 +43,7 @@ const initializeCheckboxes = () => {;
 // Función para renderizar la lista de Pokémon
 function renderList(pokemonArray) {;
   const pokemonContainer = document.getElementById("pokemon-container");
-  pokemonContainer.innerHTML = ''; // Limpiar el contenedor
+  pokemonContainer.innerHTML = '';
   pokemonArray.forEach(pokemon => {;
     const pokemonCard = document.createElement("div");
     pokemonCard.className = 'pokemon-card';
@@ -101,35 +101,14 @@ const clearLocalStorage = () => {;
     destination: "./missingList/missings.html",
     newWindow: false,
     close: false,
-    gravity: "top", // `top` or `bottom`
-    position: "right", // `left`, `center` or `right`
-    stopOnFocus: true, // Prevents dismissing of toast on hover
+    gravity: "top",
+    position: "right",
+    stopOnFocus: true,
     style: {
       background: "linear-gradient(to right, #101010, #6D28D9, #001100)",
       color: "white",
     },
     onClick: function(){
-    } // Callback after click
+    }
     }).showToast();
   }
-
-
-
-
-
-/*   Toastify({
-    text: `${selectedPokemon.name} atrapado!`,
-    duration: 4000,
-    destination: "./missingList/missings.html",
-    newWindow: false,
-    close: false,
-    gravity: "top", // `top` or `bottom`
-    position: "right", // `left`, `center` or `right`
-    stopOnFocus: true, // Prevents dismissing of toast on hover
-    style: {
-      background: "linear-gradient(to right, #101010, #6D28D9, #001100)",
-      color: "white",
-    },
-    onClick: function(){
-    } // Callback after click
-  }).showToast(); */
